@@ -33,6 +33,10 @@
                 "Access-Control-Allow-Origin": "*"
             }
         },
+        {
+            "src:": "/players.json",
+            "dest": "players.json"
+        },
         { 
             "src": "/site.js", 
             "dest": "site.js"
