@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 async function getPlayerData() {
-    let request = await fetch('/api/list');
+    let url_location = window.location.href
+    let url = new URL(url_location)
+    let server = url.href[url.href.length-1]
+    let request = await fetch(`/api/list/${server}`);
     if (request.status == 200) {
         let data = await request.json();
         return data;

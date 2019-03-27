@@ -55,9 +55,9 @@ var (
 )
 
 //GetPlayerList sends HTTP get request to server to get list of players
-func getPlayerList() (err error) {
+func getPlayerList(s string) (err error) {
 	server := strings.Builder{}
-	fmt.Fprintf(&server, "http://%s/players.json", ServerAddress)
+	fmt.Fprintf(&server, "http://%s/players.json", s)
 	req, err := jsonGet.Get(server.String())
 	if err != nil {
 		return err
@@ -71,9 +71,9 @@ func getPlayerList() (err error) {
 }
 
 //GetServerQueueDetails opens UDP socket to FiveM Server and current players and queue from server details
-func getServerQueueDetails() (err error) {
+func getServerQueueDetails(s string) (err error) {
 	serverData := make([]byte, 256)
-	serverConnection, err := net.Dial("udp", ServerAddress)
+	serverConnection, err := net.Dial("udp", s)
 	defer serverConnection.Close()
 	if err != nil {
 		return err
@@ -156,8 +156,12 @@ func List(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "failed to load JSON file %v", err)
 		return
 	}
-	getPlayerList()
-	getServerQueueDetails()
+	s := r.URL.Query().Get("s")
+	if (s == "2") {
+		ServerAddress = "66.70.181.77:30160"
+	}
+	getPlayerList(ServerAddress)
+	getServerQueueDetails(ServerAddress)
 	parsePlayers()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(ServerDetails)

@@ -26,15 +26,27 @@
     ],
     "routes": [
         { 
-            "src": "/api/list", 
-            "dest": "/api/list.go" ,
+            "src": "/api/list/(.*)", 
+            "dest": "/api/list.go?s=$1" ,
             "headers":
             {
                 "Access-Control-Allow-Origin": "*"
             }
         },
         { 
-            "src": "/", 
+            "src": "/site.js", 
+            "dest": "site.js"
+        },
+        { 
+            "src": "/site.min.js", 
+            "dest": "site.min.js"
+        },
+        { 
+            "src": "/site.css", 
+            "dest": "site.css"
+        },
+        { 
+            "src": "/(.*)", 
             "dest": "index.html"
         }
     ]
