@@ -47,7 +47,6 @@ type NoPixelPlayer struct {
 var (
 	jsonGet = &http.Client{Timeout: 10 * time.Second}
 	//ServerAddress to connect to
-	ServerAddress = "66.70.181.77:30120"
 	//ServerDetails struct to holds PlayerList & ServerDetails struct
 	ServerDetails = &ServerDetailsStruct{}
 	//NoPixelData struct
@@ -158,10 +157,15 @@ func List(w http.ResponseWriter, r *http.Request) {
 	}
 	s := r.URL.Query().Get("s")
 	if (s == "2") {
-		ServerAddress = "66.70.181.77:30160"
+		ServerAddress := "66.70.181.77:30160"
+		getPlayerList(ServerAddress)
+		getServerQueueDetails(ServerAddress)
+	} else {
+		ServerAddress := "66.70.181.77:30120"
+		getPlayerList(ServerAddress)
+		getServerQueueDetails(ServerAddress)
 	}
-	getPlayerList(ServerAddress)
-	getServerQueueDetails(ServerAddress)
+
 	parsePlayers()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(ServerDetails)
