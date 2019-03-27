@@ -34,7 +34,7 @@
             }
         },
         {
-            "src:": "/players.json",
+            "src": "/players.json",
             "dest": "players.json"
         },
         { 
