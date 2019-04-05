@@ -161,7 +161,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		getPlayerList(ServerAddress)
 		getServerQueueDetails(ServerAddress)
 	} else {
-		ServerAddress := "66.70.181.77:30120"
+		ServerAddress := "144.217.11.99:30120"
 		getPlayerList(ServerAddress)
 		getServerQueueDetails(ServerAddress)
 	}
